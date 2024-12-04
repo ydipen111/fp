@@ -18,10 +18,26 @@ export const productApi = createApi({
       })
     }),
 
+    getTop5: builder.query({
+      query: () => ({
+        url: '/getTopProducts',
+        method: 'GET'
+      })
+    }),
+
+    getProductById: builder.query({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: 'GET'
+      })
+    }),
+
+
+
     removeProduct: builder.mutation({
 
       query: (id) => ({
-        url: `/${id}`,
+        url: `/products/${id}`,
         method: 'DELETE'
       })
 
@@ -33,5 +49,7 @@ export const productApi = createApi({
 
 export const {
   useGetProductQuery,
+  useGetTop5Query,
+  useGetProductByIdQuery,
   useRemoveProductMutation
 } = productApi;

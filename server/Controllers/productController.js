@@ -10,6 +10,29 @@ export const getTopProducts = (req, res, next) => {
   next();
 }
 
+//getProductById
+
+export const getProduct = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      const product = await Product.findById(id);
+      return res.status(200).json({
+        message: "id product find",
+        product
+      })
+    } else {
+      return res.status(404).json({ message: 'product Not found' })
+
+    }
+
+  } catch (err) {
+    return res.status(400).json({ message: `${err}` })
+
+  }
+}
+
 //getALlProducts
 export const getProducts = async (req, res) => {
 
@@ -46,7 +69,7 @@ export const getProducts = async (req, res) => {
 
 
     const page = req.page || 1;
-    const limit = req.limit || 10;
+    const limit = req.limit || 5;
     const skip = (page - 1) * limit;
 
     const response = await query.skip(skip).limit(limit);

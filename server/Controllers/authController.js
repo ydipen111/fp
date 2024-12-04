@@ -10,6 +10,7 @@ export const login = async (req, res) => {
   try {
     const isExist = await User.findOne({ email });
 
+
     if (isExist) {
       //checking password and bcrypt it
       const pass = bcrypt.compareSync(password, isExist.password);
@@ -21,8 +22,23 @@ export const login = async (req, res) => {
         isAdmin: isExist.isAdmin
       }, 'token');
 
+      res.cookie(
+        'jwt',
+        token,
+        {
+          httpOnly: true,
+          maxAge: 1000 * 60 * 60 * 24 * 7, //
+          sameSite: 'none',
+          secure: true
+        }
+      )
+
+      const cook = req.cookies;
+      console.log(cook);
+
       return res.status(200).json({
         token,
+
         fullname: isExist.fullname,
         email: isExist.email,
         isAdmin: isExist.isAdmin,

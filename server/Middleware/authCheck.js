@@ -14,8 +14,8 @@ export const userCheck = (req, res, next) => {
     return res.status(401).json({ message: 'you are not authorized' })
   }
 
-
 }
+
 
 //adminChecking
 export const adminCheck = (req, res, next) => {
