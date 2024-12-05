@@ -1,6 +1,7 @@
 import express from 'express';
 import authRoutes from './Routes/authRoutes.js'
 import productRoute from './Routes/productRoute.js'
+import orderRoute from './Routes/orderRoutes.js'
 import mongoose from 'mongoose';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
@@ -34,6 +35,7 @@ mongoose.connect('mongodb+srv://DipenDra:Dipendra123@cluster0.h9oaq.mongodb.net/
 
 app.use('/api', authRoutes);
 app.use('/api', productRoute);
+app.use('/api', orderRoute);
 
 
 

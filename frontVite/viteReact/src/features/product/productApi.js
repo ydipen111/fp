@@ -29,7 +29,8 @@ export const productApi = createApi({
       query: (id) => ({
         url: `/products/${id}`,
         method: 'GET'
-      })
+      }),
+      providesTags: ['Product']
     }),
 
 

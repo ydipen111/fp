@@ -1,15 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCartsFromLocal, setCartsLocal } from "../../hooks/local";
+import { clearCartsFromLocal, getCartsFromLocal, setCartsLocal } from "../../hooks/local";
 
 
 export const cartSlice = createSlice({
-  name: 'cart',
+  name: 'cartSlice',
 
   initialState: {
     carts: getCartsFromLocal()
   },
 
   reducers: {
+
     setCarts: (state, action) => {
       const isExist = state.carts.find((cart) => cart.product === action.payload.product);
 
@@ -20,8 +21,22 @@ export const cartSlice = createSlice({
         state.carts.push(action.payload);
         setCartsLocal(state.carts);
       }
+    },
+
+    //clearCarts
+    removeCart: (state, action) => {
+      state.carts.splice(action.payload, 1);
+      setCartsLocal(state.carts);
+
+    },
+    //removeCarts
+    clearCarts: (state, action) => {
+      state = [];
+      clearCartsFromLocal();
+
     }
+
   }
 })
 
-export const { setCarts } = cartSlice.actions
+export const { setCarts, clearCarts, removeCart } = cartSlice.actions

@@ -56,9 +56,6 @@ export const login = async (req, res) => {
 }
 
 
-
-
-
 //signUp
 export const signup = async (req, res) => {
 

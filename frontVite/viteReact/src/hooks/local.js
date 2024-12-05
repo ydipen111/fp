@@ -13,7 +13,11 @@ export const setCartsLocal = (carts) => {
 
 export const getCartsFromLocal = () => {
   const carts = localStorage.getItem('carts');
-  return carts ? JSON.parse(carts) : null;
+  return carts ? JSON.parse(carts) : [];
+}
+
+export const clearCartsFromLocal = () => {
+  localStorage.removeItem('carts');
 }
 
 export const clearUser = () => {

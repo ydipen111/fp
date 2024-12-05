@@ -3,8 +3,9 @@ import { useFormik } from 'formik';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { setCarts } from './cartSlice';
+import { removeCart, setCarts } from './cartSlice';
 import { base } from '../../app/port';
+import { ODailouge } from './ODailouge';
 
 
 
@@ -15,36 +16,34 @@ const CartPage = () => {
 
 
 
-  const { carts } = useSelector((state) => state.cart)
+  const { carts } = useSelector((state) => state.cartSlice)
+  // carts.forEach(cart => {
+  //   console.log("cart item", cart.stock, cart.name);
 
-  carts.forEach(cart => {
-    console.log("cart item", cart.stock, cart.name);
-
-
-
-  })
+  // })
 
 
 
   const dispatch = useDispatch();
-  // const total = carts.reduce((a, b) => a + b.qty * b.price, 0);
+  const total = carts.reduce((a, b) => a + b.qty * b.price, 0);
 
   const handleSubmit = async () => {
 
   }
 
   return (
-    <div>
+    <div className='p-40 shadow-xl '>
 
-      <div className='p-5'>
+      <div className='bg-blue-200'>
 
         {carts.length === 0 ? <h1>list is empty add some</h1> :
-          <div>
+          <div className=' h-[500px]'>
 
-            <div >
-              {carts.map((cart) => {
-                return <div className='grid grid-cols-4 gap-12' key={cart.product}>
-                  <img className='w-full h-36' src={`${base}/${cart.image}`} alt="" />
+            <div className='px-10' >
+              {carts.map((cart, i) => {
+                return <div className='grid grid-cols-4  gap-12 space-y-3 py-2' key={cart.product}>
+                  <img className=' max-w-[200px] max-h-[200px]' src={`${base}/${cart.image}`} alt="" />
+
                   <div>
                     <select defaultValue={cart.qty} name="qty" id="" onChange={(e) => {
 
@@ -56,17 +55,26 @@ const CartPage = () => {
                     </select>
                   </div>
                   <h1>Rs.{cart.price}</h1>
+                  <div>
+
+                    <Button
+                      onClick={() => {
+                        dispatch(removeCart(i))
+                      }}
+                      size='sm' >Remove</Button>
+                  </div>
                 </div>
               })}
 
             </div>
 
-            <div className='flex justify-between'>
+            <div className='flex justify-between bg-red-200'>
               <h1>Total</h1>
-              {/* <p>{total}</p> */}
+              <p>{total}</p>
             </div>
-            <Button onClick={handleOpen} className='mt-10'>Place An Order</Button>
-            {/* <CustomDialog open={open} handleOpen={handleOpen} handleConfirm={handleSubmit} /> */}
+
+            <ODailouge totalAmount={total} orderItems={carts} />
+
           </div>}
 
       </div>
@@ -77,23 +85,30 @@ const CartPage = () => {
 export default CartPage;
 
 
-
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export const AddCart = ({ product }) => {
   const dispatch = useDispatch();
   const nav = useNavigate();
 
-  const { carts } = useSelector((state) => state.cart)
-  const { user } = useSelector((state) => state.userSlice);
-  console.log(user);
+  const { carts } = useSelector((state) => state.cartSlice)
 
-  const isExist = carts.find((cart) => cart.product.product === product.product._id);
+
+
+
+  const { user } = useSelector((state) => state.userSlice);
+  // console.log(carts.qty);
+
+  const isExist = carts.find((cart) => cart.product === product.product._id);
+  console.log(isExist);
+
+
+
 
   const formik = useFormik({
     initialValues: {
-      qty: isExist?.qty || 1
+      qty: 1
     }
   });
-
 
 
 
@@ -103,16 +118,15 @@ export const AddCart = ({ product }) => {
       qty: Number(formik.values.qty),
       image: product.product.image,
       price: product.product.price,
-      product: product.product._id,
-      stock: product.product.stock,
-      rating: product.product.rating
-    }));
+      product: product.product._id
+
+    }))
     nav('/cart-page');
   }
 
   return (
-    <Card className="h-full w-full overflow-scroll">
-      <table className="w-full min-w-max table-auto text-left">
+    <Card className="  w-full max-h-[500px] overflow-scroll">
+      <table className="w-full bg-sky-400 min-w-max table-auto text-left">
         <thead>
           <tr>
 
@@ -168,7 +182,7 @@ export const AddCart = ({ product }) => {
 
                   onChange={(e) => formik.setFieldValue('qty', e.target.value)}
                 >
-                  {[...Array(product.stock).keys()].map((c) => {
+                  {[...Array(product.product.stock).keys()].map((c) => {
                     return <option key={c + 1} value={c + 1}>{c + 1}</option>
                   })}
                 </select>
@@ -183,7 +197,7 @@ export const AddCart = ({ product }) => {
 
       </table>
       <div className='flex justify-center pt-7'>
-        <Button onClick={handleSubmit}>Add To Cart</Button>
+        <Button disabled={user?.admin || !user} onClick={handleSubmit}>Add To Cart</Button>
 
       </div>
     </Card>
