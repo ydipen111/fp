@@ -1,9 +1,27 @@
 import Order from "../Models/Order.js";
 
 
+
+//getAllOrder
 export const getAllOrder = async (req, res, next) => {
   try {
-    const orders = await Order.find({});
+    const orders = await Order.find();
+    return res.status(200).json({
+      length: orders.length,
+      produt: orders,
+      message: "getAllOrder",
+
+    })
+  } catch (error) {
+    return res.status(500).json({ message: "Error" })
+
+  }
+}
+
+//userOrder
+export const getOrderUser = async (req, res, next) => {
+  try {
+    const orders = await Order.find({ user: req.userId });
     return res.status(200).json({ message: "getAllOrder" })
   } catch (error) {
     return res.status(500).json({ message: "Error" })
