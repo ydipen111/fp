@@ -11,6 +11,7 @@ import ProductAdmin from './features/admin/ProductAdmin'
 import { Products } from './features/product/Products'
 import ProductDetail from './features/product/ProductDetail'
 import CartPage from './features/cart/CartPage'
+import { UserProfie } from './features/profile/UserProfie'
 
 
 function App() {
@@ -34,6 +35,11 @@ function App() {
     {
       path: 'cart-page',
       element: <CartPage />
+    },
+    {
+      path: 'user-profile',
+      element: <UserProfie />
+
     },
     {
       element: <UserRoutes />,

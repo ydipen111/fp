@@ -9,9 +9,8 @@ export const orderApi = createApi({
   }),
 
   endpoints: (builder) => ({
-
+    //getting all order
     getAllOrder: builder.query({
-
       query: (token) => ({
         url: '/orders',
         headers: {
@@ -22,8 +21,21 @@ export const orderApi = createApi({
       providesTags: ['Order']
     }),
 
-    addOrder: builder.mutation({
+    //getOrderByUser
+    getUserOrder: builder.query({
+      query: (token) => ({
+        url: '/orders/users',
+        headers: {
+          Authorization: token
+        },
+        method: 'GET'
+      }),
+      providesTags: ['Order']
+    }),
 
+
+    //addOrder
+    addOrder: builder.mutation({
       query: (q) => ({
         url: '/orders',
         headers: {
@@ -44,5 +56,6 @@ export const orderApi = createApi({
 
 export const {
   useGetAllOrderQuery,
-  useAddOrderMutation
+  useAddOrderMutation,
+  useGetUserOrderQuery
 } = orderApi;

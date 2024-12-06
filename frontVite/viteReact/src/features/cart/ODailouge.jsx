@@ -67,6 +67,7 @@ export function ODailouge({ totalAmount, orderItems }) {
             onClick={() => {
               hanSubmit();
               handleOpen();
+              nav('/')
             }}>
             <span>Confirm</span>
           </Button>

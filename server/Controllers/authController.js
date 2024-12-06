@@ -81,3 +81,43 @@ export const signup = async (req, res) => {
   }
 
 }
+
+
+//userProfile
+export const getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.id).select('fullname email   ');
+    if (!user) return res.status(404).json({ message: "User not found" });
+    return res.status(200).json(user)
+
+  } catch (error) {
+    return res.status(400).json({ message: `${error}` })
+
+  }
+}
+
+//updateUserProfile
+export const updateUserProfile = async (req, res) => {
+
+  const { fullname, password, email } = req.body;
+  try {
+    const isExist = await User.findById(id);
+    if (!isExist) return res.status(404).json({ message: "User not found" });
+
+    if (isExist) {
+      isExist.fullname == fullname || isExist.fullname;
+      isExist.email == email || isExist.email;
+      isExist.password == password || isExist.password;
+
+      await isExist.save();
+      return res.status(200).json({ message: 'successfully updated' });
+    } else {
+      return res.status(404).json({ message: "User not found" });
+
+    }
+  } catch (error) {
+    return res.status(400).json({ message: `${error}` })
+  }
+
+}
+//

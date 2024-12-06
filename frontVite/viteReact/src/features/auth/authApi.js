@@ -8,7 +8,7 @@ export const authApi = createApi({
   }),
 
   endpoints: (builder) => ({
-
+    //login
     userLogin: builder.mutation({
 
       query: (query) => ({
@@ -19,6 +19,7 @@ export const authApi = createApi({
       })
     }),
 
+    //userSignUp
     userSignUp: builder.mutation({
 
       query: (query) => ({
@@ -28,8 +29,42 @@ export const authApi = createApi({
       })
     }),
 
+    //userProfile
+    userProfile: builder.query({
+      query: (token) => ({
+        url: `/profile`,
+        headers: {
+          Authorization: token,
+        },
+        method: 'GET'
+      }),
+      providesTags: ['Profile']
+    }),
+
+
+    //updateProfile
+    updateUserProfile: builder.mutation({
+      query: (token) => ({
+        url: `/profile`,
+        headers: {
+          Authorization: token
+        },
+        method: 'PATCH'
+      }),
+      providesTags: ['User']
+
+    })
+
+
+
+
 
   })
 })
 
-export const { useUserSignUpMutation, useUserLoginMutation } = authApi;
+export const {
+  useUserSignUpMutation,
+  useUserLoginMutation,
+  useUserProfileQuery,
+  useUpdateUserProfileMutation
+} = authApi;
