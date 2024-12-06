@@ -1,2 +1,2 @@
-export const base = 'http://192.168.1.148:1999'
+export const base = 'https://fp-z3nb.onrender.com'
 export const baseUrl = `${base}/api`
