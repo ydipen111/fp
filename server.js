@@ -9,7 +9,7 @@ import fileUpload from 'express-fileupload';
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: true,
+  origin: ['https://fp-ruddy.vercel.app'],
   credentials: true
 }));
 app.use(express.static('Image'));
