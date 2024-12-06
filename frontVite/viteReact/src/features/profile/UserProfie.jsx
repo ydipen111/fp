@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { AdminOrder } from '../order/AdminOrder';
-import { UserOrder } from '../order/UserORder';
+// import { UserOrder } from '../order/UserORder';
 import ProfileCard from './ProfileCard';
 import { useUserProfileQuery } from '../auth/authApi';
 
@@ -19,7 +18,9 @@ export const UserProfie = () => {
         {data && <ProfileCard userData={data} />}
       </div>
       <div className='col-span-2'>
-        {user.isAdmin ? <AdminOrder user={user} /> : <UserOrder user={user} />}
+
+        {/* {user.isAdmin ? <AdminOrder user={user} /> : <UserOrder user={user} />} */}
+
       </div>
     </div>
   )
