@@ -9,6 +9,7 @@ export const orderApi = createApi({
   }),
 
   endpoints: (builder) => ({
+
     //getting all order
     getAllOrder: builder.query({
       query: (token) => ({
@@ -34,10 +35,26 @@ export const orderApi = createApi({
     }),
 
 
+    //getOrderDetais
+    getOrderDetails: builder.query({
+      query: (q) => ({
+        url: `/orders/users/${q.id}`,
+        headers: {
+          Authorization: q.token
+        },
+        method: 'GET'
+      }),
+      providesTags: ['Order']
+    }),
+
+
+
+
+
     //addOrder
     addOrder: builder.mutation({
       query: (q) => ({
-        url: '/orders',
+        url: `/orders/${id}`,
         headers: {
           Authorization: `${q.token}`,
           // 'Content-Type': 'application/json',
@@ -51,11 +68,13 @@ export const orderApi = createApi({
     }),
 
 
+
   })
 })
 
 export const {
   useGetAllOrderQuery,
   useAddOrderMutation,
-  useGetUserOrderQuery
+  useGetUserOrderQuery,
+  useGetOrderDetailsQuery
 } = orderApi;

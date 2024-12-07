@@ -6,12 +6,9 @@ import Order from "../Models/Order.js";
 export const getAllOrder = async (req, res, next) => {
   try {
     const orders = await Order.find();
-    return res.status(200).json({
-      length: orders.length,
-      produt: orders,
-      message: "getAllOrder",
-
-    })
+    return res.status(200).json(
+      orders
+    )
   } catch (error) {
     return res.status(500).json({ message: "Error" })
 
@@ -30,6 +27,33 @@ export const getOrderUser = async (req, res, next) => {
 
   }
 }
+
+//getOrderDetails
+export const getOrderDetails = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id).populate([{
+      path: 'user',
+      model: 'User',
+      select: 'fullname email'
+    },
+    {
+      path: 'orderItems.product',
+      model: 'Product',
+      select: 'name image'
+
+    }
+    ])
+
+    return res.status(200).json(order)
+
+  } catch (error) {
+    return res.status(500).json({ message: "Error" })
+
+  }
+}
+
+
+//creatingOrder
 export const addOrder = async (req, res, next) => {
   const { totalAmount, orderItems } = req.body;
 

@@ -3,11 +3,13 @@ import { useSelector } from 'react-redux'
 // import { UserOrder } from '../order/UserORder';
 import ProfileCard from './ProfileCard';
 import { useUserProfileQuery } from '../auth/authApi';
+import { AdminOrder } from '../order/AdminOrder';
+import { UserOrder } from '../order/UserOrder';
 
 export const UserProfie = () => {
   const { user } = useSelector((state) => state.userSlice);
   const { data, isLoading, isError } = useUserProfileQuery(user.token);
-  // console.log(data);
+  console.log(data);
 
 
 
@@ -19,7 +21,7 @@ export const UserProfie = () => {
       </div>
       <div className='col-span-2'>
 
-        {/* {user.isAdmin ? <AdminOrder user={user} /> : <UserOrder user={user} />} */}
+        {user.isAdmin ? <AdminOrder userProfile={user} /> : <UserOrder userProfile={user} />}
 
       </div>
     </div>

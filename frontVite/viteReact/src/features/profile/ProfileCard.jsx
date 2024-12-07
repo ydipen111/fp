@@ -3,11 +3,14 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { useGetUserOrderQuery } from "../order/orderApi";
+import { useUpdateUserProfileMutation } from "../auth/authApi";
 
 const ProfileCard = ({ userData }) => {
 
   const { user } = useSelector((state) => state.userSlice);
-  console.log(userData);
+  const [updateUser, { isLoading }] = useUpdateUserProfileMutation();
+
+
 
 
 
@@ -17,17 +20,18 @@ const ProfileCard = ({ userData }) => {
       fullname: userData.fullname,
       email: userData.email
     },
-    // onSubmit: async (val) => {
-    //   try {
-    //     await updateUser({
-    //       body: val,
-    //       token: user.token
-    //     }).unwrap();
-    //     toast.success('success');
-    //   } catch (err) {
-    //     toast.error(`${err.data?.message}`);
-    //   }
-    // }
+    onSubmit: async (val) => {
+      console.log(val);
+      try {
+        await updateUser({
+          body: val,
+          token: user.token
+        }).unwrap();
+        toast.success('success');
+      } catch (err) {
+        toast.error(`${err.data?.message}`);
+      }
+    }
   });
 
   return (

@@ -99,18 +99,21 @@ export const getUserProfile = async (req, res) => {
 //updateUserProfile
 export const updateUserProfile = async (req, res) => {
 
-  const { fullname, password, email } = req.body;
+  const { fullname, email } = req.body;
   try {
-    const isExist = await User.findById(id);
+    const isExist = await User.findById(req.id);
+
     if (!isExist) return res.status(404).json({ message: "User not found" });
 
     if (isExist) {
-      isExist.fullname == fullname || isExist.fullname;
-      isExist.email == email || isExist.email;
-      isExist.password == password || isExist.password;
-
+      isExist.fullname = fullname || isExist.fullname;
+      isExist.email = email || isExist.email;
+      // isExist.password = password || isExist.password;
       await isExist.save();
-      return res.status(200).json({ message: 'successfully updated' });
+      return res.status(200).json({
+        message: 'successfully updated',
+        // isExist
+      });
     } else {
       return res.status(404).json({ message: "User not found" });
 

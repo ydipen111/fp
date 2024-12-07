@@ -44,10 +44,11 @@ export const authApi = createApi({
 
     //updateProfile
     updateUserProfile: builder.mutation({
-      query: (token) => ({
+      query: (q) => ({
         url: `/profile`,
+        body: q.body,
         headers: {
-          Authorization: token
+          Authorization: q.token
         },
         method: 'PATCH'
       }),

@@ -12,6 +12,7 @@ import { Products } from './features/product/Products'
 import ProductDetail from './features/product/ProductDetail'
 import CartPage from './features/cart/CartPage'
 import { UserProfie } from './features/profile/UserProfie'
+import OrderDetail from './features/order/OrderDetail'
 
 
 function App() {
@@ -39,6 +40,11 @@ function App() {
     {
       path: 'user-profile',
       element: <UserProfie />
+
+    },
+    {
+      path: 'order-details/:id',
+      element: <OrderDetail />
 
     },
     {
