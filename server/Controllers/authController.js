@@ -27,18 +27,17 @@ export const login = async (req, res) => {
         token,
         {
           httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 24 * 7, //
+          maxAge: 24 * 60 * 60 * 1000, //
           sameSite: 'none',
-          secure: true
+          secure: false
         }
-      )
+      );
 
-      const cook = req.cookies;
+      const cook = req.cookie;
       console.log(cook);
 
       return res.status(200).json({
         token,
-
         fullname: isExist.fullname,
         email: isExist.email,
         isAdmin: isExist.isAdmin,

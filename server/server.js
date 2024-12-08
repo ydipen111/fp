@@ -5,14 +5,18 @@ import orderRoute from './Routes/orderRoutes.js'
 import mongoose from 'mongoose';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors({
-  origin: true,
+  // origin: true,
+  origin: '*',
   credentials: true
 }));
 app.use(express.static('Image'));
+
 app.use(fileUpload({
   limits: { fileSize: 50 * 1024 * 1024 }
 }))

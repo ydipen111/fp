@@ -22,12 +22,14 @@ export const Products = () => {
 
   return (
     <div>
-      <TopProducts />
+
 
       {isLoading ? <CardLoading /> :
-        <div className='grid grid-cols-3 gap-4'>
+        <div className='grid grid-cols-4 gap-4 px-[4%]'>
           {data && data.product?.map((product) => {
-            return <Card className="" key={product._id}>
+            return <Card className="rounded-none hover:shadow-2xl transition-duration-300 ease-in-out transform hover:-translate-y-1"
+              key={product._id}>
+
               <CardHeader shadow={false} floated={false} className="h-56">
                 <img
                   src={`${base}/${product.image} `}

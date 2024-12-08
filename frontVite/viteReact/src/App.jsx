@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router'
 import './App.css'
 import { RootLayout } from './ui/RootLayout'
 import { RouterProvider } from 'react-router/dom'
-import { Home } from './Home'
 import Login from './features/auth/Login'
 import SignUp from './features/auth/SignUp'
 import { UserRoutes } from './ui/UserRoutes'
@@ -13,6 +12,9 @@ import ProductDetail from './features/product/ProductDetail'
 import CartPage from './features/cart/CartPage'
 import { UserProfie } from './features/profile/UserProfie'
 import OrderDetail from './features/order/OrderDetail'
+import { SearchPage } from './features/search/SearchPage'
+import { BodyPage } from './BodyPage'
+
 
 
 function App() {
@@ -21,11 +23,17 @@ function App() {
     element: <RootLayout />,
     children: [{
       index: true,
-      element: <Products />
+      element: <BodyPage />
     },
+
     {
       path: 'products-admin',
       element: <ProductAdmin />
+
+    },
+    {
+      path: 'bodyPage',
+      element: <BodyPage />
 
     },
     {
@@ -46,6 +54,10 @@ function App() {
       path: 'order-details/:id',
       element: <OrderDetail />
 
+    },
+    {
+      path: 'search/:search',
+      element: <SearchPage />
     },
     {
       element: <UserRoutes />,

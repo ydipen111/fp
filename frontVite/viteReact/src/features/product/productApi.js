@@ -11,11 +11,14 @@ export const productApi = createApi({
   endpoints: (builder) => ({
 
     getProduct: builder.query({
-      query: () => ({
+      query: (q) => ({
         url: '/products',
+        params: {
+          search: q
+        },
         method: 'GET',
-
-      })
+      }),
+      providesTags: 'Product'
     }),
 
     getTop5: builder.query({

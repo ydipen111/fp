@@ -33,14 +33,14 @@ export const TopProducts = () => {
 
   return (<>
 
-    {data && <Carousel className="rounded-xl h-[300px] w-[70%] mx-auto mt-4 mb-6" autoplay loop >
+    {data && <Carousel className="rounded-xl h-[499px] w-[80%] mx-auto mt-4 mb-6" autoplay loop >
 
       {data.product.map(({ _id, image }) => {
         return <img
           key={_id}
           src={`${base}/${image}`}
           alt="image 1"
-          className="h-full w-full  object-cover"
+          className="h-full w-full  object-contain"
         />;
       })}
 

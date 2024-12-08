@@ -47,6 +47,8 @@ export const getProducts = async (req, res) => {
 
     if (req.query.search) {
       queryObj.title = { $regex: req.query.search, $options: 'i' };
+
+
     }
 
     let qStr = JSON.stringify(queryObj);
@@ -69,7 +71,7 @@ export const getProducts = async (req, res) => {
 
 
     const page = req.page || 1;
-    const limit = req.limit || 5;
+    const limit = req.limit || 14;
     const skip = (page - 1) * limit;
 
     const response = await query.skip(skip).limit(limit);

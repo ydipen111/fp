@@ -6,6 +6,9 @@ import { useFormik } from 'formik';
 import { base } from '../../app/port';
 import { useGetProductByIdQuery } from './productApi';
 import CartPage, { AddCart } from '../cart/CartPage';
+import { Products } from './Products';
+import { PDCarousel } from './PDCarousel';
+import { OrderMap } from '../cart/OrderMap';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -23,25 +26,45 @@ const ProductDetail = () => {
   }
   return (
     <>
-      <div className=' p-4   gap-10  max-h-[600px] px-[20%] shadow-2xl'>
+      <div className=' pt-4  gap-10  max-h-[1000px] px-[4%] shadow-2xl'>
 
-        <div className='grid grid-cols-3 p-4 gap-4 bg-blue-400 rounded-md flex -row justify-evenly items-center'>
-          <div className="image">
-            <img className='max-h-[400px] rounded-md' src={`${base}/${data.product?.image}`} alt="" />
+        <div className='grid grid-cols-3  rounded-md flex-row  items-center '>
+          {/* image */}
+          <div className="image shadow-xl w-[355px]">
+
+            <img className='h-[288px]  rounded-none' src={`${base}/${data.product?.image}`} alt="" />
           </div>
 
-          <div className=" space-y-3">
-            <h1>{data.product?.title}</h1>
-            <p>{data.product?.description}</p>
-            <p>Rs.{data.product?.price}</p>
-          </div>
+          {/* details and buy and addcraft */}
+          <div className='shadow-2xl p-5 w-[499px]'>
+            {/* details */}
+            <div className=" space-y-3">
+              <h1 className='font-bold'>Title:{data.product?.title}</h1>
+              <p>Description{data.product?.description}</p>
+              <p>Price:Rs.{data.product?.price}</p>
+            </div>
 
-          {data && <AddCart product={data} />}
+            {/* adding craft */}
+            {data && <AddCart product={data} />}
+          </div>
+          {/* location */}
+
+          <div className=''>
+            {/* <OrderMap /> */}
+
+
+          </div>
 
 
         </div>
 
       </div>
+      <div className='px-[4%] py-20'>
+
+        <Products />
+        {/* <PDCarousel /> */}
+      </div>
+
       {/* <ProductReview user={user} id={product._id} reviews={product.reviews} /> */}
     </>
   )

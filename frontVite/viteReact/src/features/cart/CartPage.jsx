@@ -126,7 +126,7 @@ export const AddCart = ({ product }) => {
 
   return (
     <Card className="  w-full max-h-[500px] overflow-scroll">
-      <table className="w-full bg-sky-400 min-w-max table-auto text-left">
+      <table className="w-full bg-sky-400  table-auto text-left">
         <thead>
           <tr>
 
@@ -177,6 +177,7 @@ export const AddCart = ({ product }) => {
               <div>
 
                 <select
+                  className='border rounded-lg p-2 focus:outline-none'
                   defaultValue={formik.values.qty}
                   name="qty" id=""
 
@@ -196,10 +197,15 @@ export const AddCart = ({ product }) => {
 
 
       </table>
-      <div className='flex justify-center pt-7'>
-        <Button disabled={user?.admin || !user} onClick={handleSubmit}>Add To Cart</Button>
+
+      <div className='flex justify-center pt-7 rounded-none gap-7'>
+
+
+        <Button size='sm' className='w-[222px] h-[49px] rounded-none bg-green-500 text-md' >Buy Now</Button>
+        <Button className='text-md w-[222px] h-[49px] rounded-none bg-orange' disabled={user?.admin || !user} onClick={handleSubmit}>Add To Cart</Button>
 
       </div>
     </Card>
   )
 }
+

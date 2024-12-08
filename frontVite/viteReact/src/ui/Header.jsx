@@ -1,63 +1,56 @@
 import React from "react";
 import {
-  Navbar,
-  MobileNav,
   Typography,
-  Button,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-  Avatar,
-  Card,
-  IconButton,
 } from "@material-tailwind/react";
-import {
-  CubeTransparentIcon,
-  UserCircleIcon,
-  CodeBracketSquareIcon,
-  Square3Stack3DIcon,
-  ChevronDownIcon,
-  Cog6ToothIcon,
-  InboxArrowDownIcon,
-  LifebuoyIcon,
-  PowerIcon,
-  RocketLaunchIcon,
-  Bars2Icon,
-} from "@heroicons/react/24/solid";
 import { useSelector } from "react-redux";
 import ProfileMenu from "./ProfieMenu";
 import { useNavigate } from "react-router";
-
-
-
+import SearchInput from "../features/search/SearchInput";
+import { useUserLoginMutation } from "../features/auth/authApi";
 
 export function Header() {
   const { user } = useSelector((state) => state.userSlice);
-
-
-  const nav = useNavigate()
+  const nav = useNavigate();
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6">
-      <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
-        <Typography
-          onClick={() => nav('/')}
-          as="a"
-          href="#"
-          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+    <div className="bg-orange sticky top-0 z-50">
+      {/* Navbar: Login and Signup */}
+      <div className="flex flex-col items-end">
+        <div className="relative pt-2 px-[10%] flex flex-row justify-between items-start font-sans text-white">
+          <Typography
+            onClick={() => nav("/")}
+            as="a"
+            href="#"
+            className="mr-24 cursor-pointer font-medium"
+          >
+            OnlineShopNepal
+          </Typography>
 
-        >
-          Home
-        </Typography>
-        {user ? <ProfileMenu user={user} /> :
-          <Button onClick={() => nav('/login-page')} size="sm" variant="text">
-            <span>Log In</span>
-          </Button>
-        }
-
-
+          <div className="flex flex-row gap-3 items-start text-md">
+            <div className="px-3">SAVE MORE ON APP</div>
+            <div className="px-3">BECOME A SELLER</div>
+            <div className="px-3">HELP AND SUPPORT</div>
+            <div className="px-3">
+              {user ? (
+                <ProfileMenu user={user} />
+              ) : (
+                <div
+                  onClick={() => nav("/login-page")}
+                  className="cursor-pointer flex gap-5"
+                >
+                  <span>LOGIN</span>
+                  <span>SIGN UP</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-    </Navbar>
+
+      {/* Search Bar */}
+      <div className="flex flex-row justify-center pb-6 pt-2">
+        <SearchInput />
+      </div>
+    </div>
   );
 }
