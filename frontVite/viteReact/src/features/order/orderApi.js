@@ -54,17 +54,17 @@ export const orderApi = createApi({
     //addOrder
     addOrder: builder.mutation({
       query: (q) => ({
-        url: `/orders/${id}`,
+        url: `/orders`, // /${id}
         headers: {
           Authorization: `${q.token}`,
-          // 'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
 
         },
 
         body: q.body,
         method: 'POST'
       }),
-      // invalidatesTags: ['Order']
+      invalidatesTags: ['Order']
     }),
 
 

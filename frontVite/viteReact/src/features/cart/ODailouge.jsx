@@ -19,9 +19,8 @@ export function ODailouge({ totalAmount, orderItems }) {
 
 
   const [addOrder, { isLoading }] = useAddOrderMutation();
-  const data = useGetAllOrderQuery();
-  console.log(data);
-
+  // const data = useGetAllOrderQuery();
+  // console.log(data);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
   // console.log(totalAmount, orderItems);
@@ -49,7 +48,7 @@ export function ODailouge({ totalAmount, orderItems }) {
   return (
     <>
 
-      <Button size="lg" loading={isLoading} onClick={handleOpen} className=''>Place and order</Button>
+      <Button size="md" loading={isLoading} onClick={handleOpen} className='rounded-none px-10 bg-green-500'>Place and order</Button>
 
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>Are you Sure to order ?</DialogHeader>
@@ -67,7 +66,7 @@ export function ODailouge({ totalAmount, orderItems }) {
             onClick={() => {
               hanSubmit();
               handleOpen();
-              nav('/')
+              // nav('/')
             }}>
             <span>Confirm</span>
           </Button>

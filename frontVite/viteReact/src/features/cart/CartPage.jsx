@@ -21,6 +21,8 @@ const CartPage = () => {
   //   console.log("cart item", cart.stock, cart.name);
 
   // })
+  console.log(carts);
+
 
 
 
@@ -32,48 +34,78 @@ const CartPage = () => {
   }
 
   return (
-    <div className='p-40 shadow-xl '>
+    <div className='p-[4%] shadow-xl '>
 
-      <div className='bg-blue-200'>
+      <div className=''>
 
         {carts.length === 0 ? <h1>list is empty add some</h1> :
           <div className=' h-[500px]'>
 
-            <div className='px-10' >
+            <div className='px-10 ' >
               {carts.map((cart, i) => {
                 return <div className='grid grid-cols-4  gap-12 space-y-3 py-2' key={cart.product}>
-                  <img className=' max-w-[200px] max-h-[200px]' src={`${base}/${cart.image}`} alt="" />
 
-                  <div>
-                    <select defaultValue={cart.qty} name="qty" id="" onChange={(e) => {
-
-                      dispatch(setCarts({ ...cart, qty: Number(e.target.value) }));
-                    }}>
-                      {[...Array(cart.stock).keys()].map((c) => {
-                        return <option key={c + 1} value={c + 1}>{c + 1}</option>
-                      })}
-                    </select>
+                  {/*image  */}
+                  <div className='shadow-md max-w-[255px] max-h-[222px] p-3'>
+                    <img className='  object-cover image-full ' src={`${base}/${cart.image}`} alt="" />
                   </div>
-                  <h1>Rs.{cart.price}</h1>
-                  <div>
+
+
+                  {/* details */}
+                  <div className='col-span-2 flex flex-col   shadow-2xl items-start p-5 gap-5'>
+                    <p>
+                      <span className='font-bold'> Product:</span> {cart.name}
+                    </p>
+
+                    <p>
+                      <span className='font-bold'> Select quantity level:</span>
+
+                      <select className='' defaultValue={cart.qty} name="qty" id="" onChange={(e) => {
+
+                        dispatch(setCarts({ ...cart, qty: Number(e.target.value) }));
+                      }}>
+                        {[...Array(cart.qty).keys()].map((c) => {
+                          return <option key={c + 1} value={c + 1}>{c + 1}</option>
+                        })}
+                      </select>
+                    </p>
+
+
+                    <h1><span className='font-bold'>Per Price : </span> Rs.{cart.price}</h1>
+                  </div>
+
+                  {/* remove and place and order */}
+                  <div className='space-x-3 '>
 
                     <Button
+                      className='rounded-none bg-red-600'
                       onClick={() => {
                         dispatch(removeCart(i))
                       }}
-                      size='sm' >Remove</Button>
+                      size='md' >Remove</Button>
+                    <Button
+                      className='rounded-none bg-red-400'>Time and loction</Button>
+
                   </div>
+
+                  {/*payment system */}
+
                 </div>
               })}
 
             </div>
 
-            <div className='flex justify-between bg-red-200'>
-              <h1>Total</h1>
-              <p>{total}</p>
+            <div className='grid grid-cols-4 px-10 items-center'>
+              <p className='font-bold'>Total Amount</p>
+
+              <p>
+                <span className=''> NRS :</span> {total}</p>
+
+              <div className=''>
+                <ODailouge className="rounded-none" totalAmount={total} orderItems={carts} />
+              </div>
             </div>
 
-            <ODailouge totalAmount={total} orderItems={carts} />
 
           </div>}
 
