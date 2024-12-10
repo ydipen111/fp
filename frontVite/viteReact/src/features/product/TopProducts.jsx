@@ -38,7 +38,7 @@ export const TopProducts = () => {
       {data.product.map(({ _id, image }) => {
         return <img
           key={_id}
-          src={`${base}/${image}`}
+          src={`${image}`}
           alt="image 1"
           className="h-full w-full  object-contain"
         />;
