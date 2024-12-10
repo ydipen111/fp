@@ -34,7 +34,7 @@ export function Header() {
               {user ? (
                 <ProfileMenu user={user} />
               ) : (
-                <div>
+                <div className="flex flex-row gap-4">
                   <div
                     onClick={() => nav("/login-page")}
                     className="cursor-pointer flex gap-5"
