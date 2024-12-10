@@ -34,12 +34,17 @@ export function Header() {
               {user ? (
                 <ProfileMenu user={user} />
               ) : (
-                <div
-                  onClick={() => nav("/login-page")}
-                  className="cursor-pointer flex gap-5"
-                >
-                  <span>LOGIN</span>
-                  <span>SIGN UP</span>
+                <div>
+                  <div
+                    onClick={() => nav("/login-page")}
+                    className="cursor-pointer flex gap-5"
+                  >
+                    <span>LOGIN</span>
+                  </div>
+
+                  <span
+                    onClick={() => nav("/signup-page")}
+                    className="cursor-pointer flex gap-5">SIGN UP</span>
                 </div>
               )}
             </div>
