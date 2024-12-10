@@ -42,9 +42,9 @@ export function Header() {
                     <span>LOGIN</span>
                   </div>
 
-                  <span
+                  <div
                     onClick={() => nav("/signup-page")}
-                    className="cursor-pointer flex gap-5">SIGN UP</span>
+                    className="cursor-pointer flex gap-5">SIGN UP</div>
                 </div>
               )}
             </div>
